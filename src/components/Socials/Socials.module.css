@@ -1,19 +1,22 @@
-.socials ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-.socials img {
-  width: auto;
-  height: auto;
-  max-width: 50px;
-  max-height: 50px;
-  margin: 0;
-  padding: 5px 0;
-  cursor: pointer;
+.socials {
+  display: flex;
+  gap: 0.4rem;
 }
 
 .socials a {
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
   text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.socials a:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+  background: var(--surface);
 }

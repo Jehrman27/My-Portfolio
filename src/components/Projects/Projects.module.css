@@ -1,17 +1,4 @@
-.projects {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  text-decoration: none;
-  font-size: large;
-  width: 100%;
-}
-
-a,
-a:hover,
-a:visited,
-a:active {
-  color: inherit;
+.list {
+  display: grid;
+  gap: 1.5rem;
 }

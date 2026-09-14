@@ -1,0 +1,11 @@
+.about {
+  display: grid;
+  gap: 1.1rem;
+  max-width: var(--measure);
+  color: var(--text-muted);
+  font-size: 1.02rem;
+}
+
+.cta {
+  color: var(--text);
+}

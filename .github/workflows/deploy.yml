@@ -1,47 +1,43 @@
-name: Deploy to GitHub Pages
+name: Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Checkout the code
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # Step 2: Setup pnpm
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      # Version comes from `packageManager` in package.json.
+      - uses: pnpm/action-setup@v4
 
-      # Step 3: Set up Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "pnpm"
+          cache: pnpm
 
-      # Step 4: Install dependencies using pnpm
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install
+        run: pnpm install --frozen-lockfile
 
-      # Step 5: Build the app
-      - name: Build the app
-        run: pnpm run build
+      - name: Lint
+        run: pnpm lint
 
-      # Step 6: Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
+      # `build` type-checks with `tsc -b` before Vite runs.
+      - name: Build
+        run: pnpm build
+
+      - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          cname: "ehrmantraut.me"

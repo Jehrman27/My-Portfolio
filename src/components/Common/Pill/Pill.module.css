@@ -1,0 +1,22 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.subtle {
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  background: var(--accent-veil);
+  color: var(--accent);
+  font-family: var(--font);
+  font-weight: 550;
+  letter-spacing: 0.01em;
+}

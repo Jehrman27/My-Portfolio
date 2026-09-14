@@ -1,30 +1,28 @@
+import { site } from "../../data/site";
+import { GitHubIcon, LinkedInIcon, MailIcon } from "../Icons/Icons";
 import styles from "./Socials.module.css";
 
-const Socials = () => {
-  return (
-    <div className={styles.socials}>
-      <ul>
-        <li>
-          <a href="https://github.com/Jehrman27" target="_blank">
-            <img src="/images/social-github-white.svg" alt="The GitHub Icon" />
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.linkedin.com/in/jonathan-ehrmantraut/"
-            target="_blank"
-          >
-            <img src="/images/social-linkedin.png" alt="The LinkedIn Icon" />
-          </a>
-        </li>
-        <li>
-          <a href="mailto:jehrman27@gmail.com">
-            <img src="/images/social-email.png" alt="The Email Icon" />
-          </a>
-        </li>
-      </ul>
-    </div>
-  );
-};
+const links = [
+  { href: site.github, label: "GitHub", Icon: GitHubIcon, external: true },
+  { href: site.linkedin, label: "LinkedIn", Icon: LinkedInIcon, external: true },
+  { href: `mailto:${site.email}`, label: "Email", Icon: MailIcon, external: false },
+];
+
+const Socials = () => (
+  <ul className={styles.socials}>
+    {links.map(({ href, label, Icon, external }) => (
+      <li key={label}>
+        <a
+          href={href}
+          aria-label={label}
+          title={label}
+          {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+        >
+          <Icon size={18} />
+        </a>
+      </li>
+    ))}
+  </ul>
+);
 
 export default Socials;

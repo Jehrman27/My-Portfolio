@@ -1,10 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/images/fuzzy-favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jonathan Ehrmantraut</title>
+
+    <title>Jonathan Ehrmantraut — Front-End Developer</title>
+    <meta
+      name="description"
+      content="Front-end developer building fast, accessible React interfaces. I built the Peregrine threat-intelligence platform's front end from the ground up."
+    />
+    <meta name="author" content="Jonathan Ehrmantraut" />
+    <link rel="canonical" href="https://ehrmantraut.me/" />
+    <meta
+      name="theme-color"
+      content="#0b0b10"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#fbfaf8"
+      media="(prefers-color-scheme: light)"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ehrmantraut.me/" />
+    <meta
+      property="og:title"
+      content="Jonathan Ehrmantraut — Front-End Developer"
+    />
+    <meta
+      property="og:description"
+      content="Front-end developer building fast, accessible React interfaces. I built the Peregrine threat-intelligence platform's front end from the ground up."
+    />
+    <meta
+      property="og:image"
+      content="https://ehrmantraut.me/images/og-card.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap"
+    />
+
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          var prefersLight = window.matchMedia(
+            "(prefers-color-scheme: light)",
+          ).matches;
+          document.documentElement.dataset.theme =
+            saved || (prefersLight ? "light" : "dark");
+        } catch {
+          // ignore
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

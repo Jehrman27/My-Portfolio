@@ -1,11 +1,14 @@
 import styles from "./Pill.module.css";
 
-interface IPill {
+interface PillProps {
   children: React.ReactNode;
+  subtle?: boolean;
 }
 
-export const Pill = ({ children }: IPill) => {
-  return <div className={styles.pill}>{children}</div>;
-};
+export const Pill = ({ children, subtle = false }: PillProps) => (
+  <span className={subtle ? `${styles.pill} ${styles.subtle}` : styles.pill}>
+    {children}
+  </span>
+);
 
 export default Pill;

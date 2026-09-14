@@ -1,50 +1,46 @@
-# React + TypeScript + Vite
+# ehrmantraut.me
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+My personal site and portfolio, live at **[ehrmantraut.me](https://ehrmantraut.me)**.
 
-Currently, two official plugins are available:
+A single-page React app: hero, selected work, toolbox, about.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack
 
-## Expanding the ESLint configuration
+|           |                                            |
+| --------- | ------------------------------------------ |
+| Framework | React 19 + TypeScript                      |
+| Build     | Vite                                       |
+| Styling   | CSS Modules, custom properties for theming |
+| Hosting   | GitHub Pages, custom domain via `CNAME`    |
+| Deploy    | GitHub Actions on push to `main`           |
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Running it
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+pnpm install
+pnpm dev      # http://localhost:5173
+pnpm build    # type-check + production build to dist/
+pnpm preview  # serve the production build
+pnpm lint
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Editing the content
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+All copy and project data lives in [`src/data/site.ts`](src/data/site.ts) — adding
+a project or changing a bio line means editing that file, not the components.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Notes on a few decisions
+
+- **Theming.** Dark by default, light available. The initial theme is resolved by
+  a small inline script in `index.html` so the page never paints the wrong one
+  and then corrects itself. After that `useTheme` owns it, persisting to
+  `localStorage` and following the OS preference until you choose a side.
+- **Icons are inline SVG.** They inherit `currentColor`, so one set works in both
+  themes instead of shipping light and dark image files.
+- **Images are pre-processed.** `public/images/` holds a square 720px portrait
+  (JPEG + WebP) and a 1200×630 Open Graph card, not camera originals.
+
+## Deployment
+
+Every push to `main` triggers `.github/workflows/deploy.yml`, which builds with
+pnpm and publishes `dist/` to the `gh-pages` branch.

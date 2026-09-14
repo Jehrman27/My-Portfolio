@@ -1,76 +1,157 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  font-synthesis: none;
+  --bg: #0b0b10;
+  --bg-veil: rgba(11, 11, 16, 0.72);
+  --surface: #13131b;
+  --surface-hover: #191924;
+  --border: #262633;
+  --border-strong: #34344a;
+  --text: #ececf1;
+  --text-muted: #9a9aae;
+  --text-faint: #8a8a9e;
+  --accent: #ff7a5c;
+  --accent-hover: #ff9c84;
+  --accent-veil: rgba(255, 122, 92, 0.12);
+  --accent-ink: #14060a;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+
+  --font:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", "Cascadia Mono", Menlo, Consolas,
+    monospace;
+
+  --measure: 68ch;
+  --page: 62rem;
+  --radius: 14px;
+  --radius-sm: 8px;
+
+  color-scheme: dark;
+  font-family: var(--font);
+  font-synthesis-weight: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  --background-color: #05000a;
-  --text-color: #ffffff;
-  --button-bg-color: #05000a;
-  --button-border-color: #646cff;
-  --button-hover-border-color: #646cff;
 }
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root[data-theme="light"] {
+  --bg: #fbfaf8;
+  --bg-veil: rgba(251, 250, 248, 0.78);
+  --surface: #ffffff;
+  --surface-hover: #fffdfb;
+  --border: #e6e1da;
+  --border-strong: #d2ccc2;
+  --text: #1a1a20;
+  --text-muted: #5c5c69;
+  --text-faint: #65616d;
+  --accent: #c2401f;
+  --accent-hover: #9e3116;
+  --accent-veil: rgba(194, 64, 31, 0.09);
+  --accent-ink: #ffffff;
+  --shadow:
+    0 1px 2px rgba(40, 30, 20, 0.06), 0 12px 28px -14px rgba(40, 30, 20, 0.22);
+
+  color-scheme: light;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* ------------------------------ base ------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-a:hover {
-  color: #535bf2;
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  min-height: 100svh;
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.65;
+  overflow-x: hidden;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  text-underline-offset: 0.2em;
+  transition:
+    color 0.15s ease,
+    text-decoration-color 0.15s ease;
+}
+
+a:hover {
+  color: var(--accent-hover);
+  text-decoration-color: currentColor;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font: inherit;
+  color: inherit;
   cursor: pointer;
-  transition: border-color 0.25s;
-  background-color: var(--button-bg-color);
-  border-color: var(--button-border-color);
-}
-button:hover {
-  border-color: var(--button-hover-border-color);
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-.light-mode {
-  --background-color: #f0f0f0;
-  --text-color: #213547;
-  --button-bg-color: #f9f9f9;
-  --button-border-color: #646cff;
-  --button-hover-border-color: #747bff;
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

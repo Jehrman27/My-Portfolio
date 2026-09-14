@@ -1,56 +1,58 @@
-import { useEffect, useState } from "react";
-import HeroImg from "./components/HeroImg/HeroImg";
-import Socials from "./components/Socials/Socials";
+import About from "./components/About/About";
 import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import Hero from "./components/Hero/Hero";
 import Projects from "./components/Projects/Projects";
+import Toolbox from "./components/Toolbox/Toolbox";
 import styles from "./App.module.css";
 
-function App() {
-  const [isLightMode, setIsLightMode] = useState(false);
-
-  useEffect(() => {
-    if (isLightMode) {
-      document.documentElement.classList.add("light-mode");
-    } else {
-      document.documentElement.classList.remove("light-mode");
-    }
-  }, [isLightMode]);
-
-  const toggleMode = () => {
-    setIsLightMode((prevMode) => !prevMode);
-  };
-  return (
-    <>
-      <section className={styles.hero}>
-        <HeroImg
-          src="/images/self-hero.jpg"
-          alt="hero image of the author in front of a fountain"
-        />
-        <p>
-          Hey, I'm Jonathan Ehrmantraut. I currently work as a Front End
-          Developer. This is a space to check out what I'm working on!
-        </p>
-        <p>(Currently it's this website)</p>
-      </section>
-      <section className={styles.projects}>
-        <h2>Projects</h2>
-        <Projects />
-      </section>
-      <section className={styles.footer}>
-        <Footer />
-      </section>
-      <nav className={styles.socials}>
-        <Socials />
-      </nav>
-      <button onClick={toggleMode} className={styles.toggleMode}>
-        {isLightMode ? (
-          <img src="./images/dark_mode.svg" alt="dark mode" />
-        ) : (
-          <img src="./images/light_mode.svg" alt="light mode" />
-        )}
-      </button>
-    </>
-  );
+interface SectionProps {
+  id: string;
+  title: string;
+  kicker?: string;
+  children: React.ReactNode;
 }
+
+const Section = ({ id, title, kicker, children }: SectionProps) => (
+  <section id={id} className={styles.section}>
+    <div className={styles.sectionHead}>
+      <h2>{title}</h2>
+      {kicker && <p>{kicker}</p>}
+    </div>
+    {children}
+  </section>
+);
+
+const App = () => (
+  <>
+    <a href="#main" className={styles.skipLink}>
+      Skip to content
+    </a>
+
+    <Header />
+
+    <main id="main" className={styles.page}>
+      <Hero />
+
+      <Section
+        id="work"
+        title="Selected work"
+        kicker="Two things worth your time: one shipped at a company, one built on my own."
+      >
+        <Projects />
+      </Section>
+
+      <Section id="toolbox" title="Toolbox">
+        <Toolbox />
+      </Section>
+
+      <Section id="about" title="About">
+        <About />
+      </Section>
+
+      <Footer />
+    </main>
+  </>
+);
 
 export default App;
